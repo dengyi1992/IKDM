@@ -55,6 +55,6 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
-
+var IK=require("./model/ingkee");
+new IK(71305331,1475226328162375);
 module.exports = app;
