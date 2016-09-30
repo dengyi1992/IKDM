@@ -85,7 +85,9 @@ function startDMListen() {
                         break;
                     case "3::":
                         // console.log("-----------" + json_decode(message.utf8Data));
-                        console.log(message.utf8Data.slice(4));
+                        var data = message.utf8Data.slice(4);
+                        var parse = JSON.parse(data);
+                        console.log(parse.userid+"--------"+data);
                         break;
                     default:break;
                 }
