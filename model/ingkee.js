@@ -2,6 +2,8 @@
  * Created by deng on 16-9-30.
  */
 var request = require("request");
+var Upload =require("./upload");
+
 function IK(uid, id) {
     this.uid = uid;
     this.id = id;
@@ -56,6 +58,7 @@ IK.prototype.start = function () {
         return replace.slice(0, 3);
     }
     function startDMListen() {
+        var uploaddata=[];
         var WebSocketClient = require('websocket').client;
 
         var client = new WebSocketClient();
@@ -93,12 +96,17 @@ IK.prototype.start = function () {
                             // console.log("-----------" + json_decode(message.utf8Data));
                             var data = message.utf8Data.slice(4);
                             var parse = JSON.parse(data);
-                            console.log(parse.userid + "--------" + data);
+                            uploaddata.push(parse);
+                            //console.log(parse.userid + "--------" + data);
                             break;
                         default:
                             break;
                     }
 
+                }
+                if (uploaddata.length>30){
+                    Upload.uploadServe(id,'ingkee',uploaddata);
+                    uploaddata=[];
                 }
             });
         });
