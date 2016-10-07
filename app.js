@@ -56,5 +56,20 @@ app.use(function(err, req, res, next) {
   });
 });
 var IK=require("./model/ingkee");
-new IK(71305331,1475226328162375);
+var request = require("request");
+
+var options = { method: 'GET',
+  url: 'http://webapi.busi.inke.cn/web/live_hotlist_pc'};
+
+request(options, function (error, response, body) {
+  if (error) return console.log(error);
+  var parse = JSON.parse(body);
+
+  console.log(body);
+  var hotlists = parse.data.hotlists;
+  for(var i=0;i<hotlists.length;i++){
+    new IK(hotlists[i].id,hotlists[i].liveid);
+  }
+});
+
 module.exports = app;
