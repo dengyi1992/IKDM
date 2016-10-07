@@ -4,11 +4,11 @@
 var request = require("request");
 var config = require("../config");
 
-exports.uploadServe = function (room_id, paltform, data) {
+exports.uploadServe = function (room_id,uid, paltform, data) {
     var options = {
         headers: {"Connection": "close"},
         url: config.upload.uploadurl + "dmIngkee" +
-        "?room_id=" + room_id,
+        "?room_id=" + room_id+"uid="+uid,
         /* url: "http://localhost:2999/" +  "dmYY" +
          "?room_id=" + room_id,*/
         method: 'POST',

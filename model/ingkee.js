@@ -105,7 +105,7 @@ IK.prototype.start = function () {
 
                 }
                 if (uploaddata.length>30){
-                    Upload.uploadServe(id,'ingkee',uploaddata);
+                    Upload.uploadServe(id,uid,'ingkee',uploaddata);
                     uploaddata=[];
                 }
             });
