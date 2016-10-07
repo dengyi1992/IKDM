@@ -68,7 +68,8 @@ request(options, function (error, response, body) {
   console.log(body);
   var hotlists = parse.data.hotlists;
   for(var i=0;i<hotlists.length;i++){
-    new IK(hotlists[i].id,hotlists[i].liveid);
+    var item = hotlists[i];
+      new IK(item.id,item.liveid,item.nick,item.title,item.online_users);
   }
 });
 

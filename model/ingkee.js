@@ -4,14 +4,20 @@
 var request = require("request");
 var Upload =require("./upload");
 
-function IK(uid, id) {
+function IK(uid, id,nick,title,online_users) {
     this.uid = uid;
     this.id = id;
+    this.nick=nick;
+    this.title=title;
+    this.online_users=online_users;
     this.start()
 }
 IK.prototype.start = function () {
     var uid = this.uid;
     var id = this.id;
+    var nick=this.nick;
+    var title=this.title;
+
     var token = null, time = null, nonce = null, sec = null, wsurl = null, sioIp = null;
     var options = {
         method: 'GET',
