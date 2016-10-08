@@ -2,21 +2,21 @@
  * Created by deng on 16-9-30.
  */
 var request = require("request");
-var Upload =require("./upload");
+var Upload = require("./upload");
 
-function IK(uid, id,nick,title,online_users) {
+function IK(uid, id, nick, title, online_users) {
     this.uid = uid;
     this.id = id;
-    this.nick=nick;
-    this.title=title;
-    this.online_users=online_users;
+    this.nick = nick;
+    this.title = title;
+    this.online_users = online_users;
     this.start()
 }
 IK.prototype.start = function () {
     var uid = this.uid;
     var id = this.id;
-    var nick=this.nick;
-    var title=this.title;
+    var nick = this.nick;
+    var title = this.title;
 
     var token = null, time = null, nonce = null, sec = null, wsurl = null, sioIp = null;
     var options = {
@@ -63,8 +63,9 @@ IK.prototype.start = function () {
         var replace = str.replace(/\"(\w+)\":/g, "$1:");
         return replace.slice(0, 3);
     }
+
     function startDMListen() {
-        var uploaddata=[];
+        var uploaddata = [];
         var WebSocketClient = require('websocket').client;
 
         var client = new WebSocketClient();
@@ -110,9 +111,9 @@ IK.prototype.start = function () {
                     }
 
                 }
-                if (uploaddata.length>100){
-                    Upload.uploadServe(id,uid,'ingkee',uploaddata);
-                    uploaddata=[];
+                if (uploaddata.length > 100) {
+                    Upload.uploadServe(id, uid, nick, title, uploaddata);//'ingkee',
+                        uploaddata = [];
                 }
             });
         });
