@@ -4,12 +4,12 @@
 var request = require("request");
 var config = require("../config");
 
-exports.uploadServe = function (room_id, uid, nick, title, fans,data) {//paltform,
+exports.uploadServe = function (room_id, uid, nick, title, fans, data) {//paltform,
     var options = {
         headers: {"Connection": "close"},
         url: config.upload.uploadurl + "spforIngkee" +
         "?room_id=" + room_id + "&uid=" + uid + "&nick=" + nick +
-        "&title=" + title+"&fans="+fans,
+        "&title=" + title + "&fans=" + fans,
         /* url: "http://localhost:2999/" +  "dmYY" +
          "?room_id=" + room_id,*/
         method: 'POST',
@@ -22,7 +22,7 @@ exports.uploadServe = function (room_id, uid, nick, title, fans,data) {//paltfor
             console.log('----info------', data);
 
         } else {
-            console.log(error)
+            console.log(error);
         }
     }
 

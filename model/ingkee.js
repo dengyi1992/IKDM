@@ -113,11 +113,14 @@ IK.prototype.start = function () {
                             sendHeartBeat();
                             break;
                         case "3::":
-                            // console.log("-----------" + json_decode(message.utf8Data));
+                            // console.log("-----------" + json_decode(message.utf8Data));"tp":"pub"
                             var data = message.utf8Data.slice(4);
                             var parse = JSON.parse(data);
-                            uploaddata.push(parse);
-                            //console.log(parse.userid + "--------" + data);
+                            if(parse.ms["0"].tp == "pub"){
+                                parse.ctime = new Date().getTime();
+                                uploaddata.push(parse);
+                            }
+                            console.log(parse.userid + "--------" + data);
                             break;
                         default:
                             break;
