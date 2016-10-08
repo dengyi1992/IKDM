@@ -17,6 +17,7 @@ IK.prototype.start = function () {
     var id = this.id;
     var nick = this.nick;
     var title = this.title;
+    var fans=0;
 
     var token = null, time = null, nonce = null, sec = null, wsurl = null, sioIp = null;
     var options = {
@@ -54,9 +55,21 @@ IK.prototype.start = function () {
         request(options, function (error, response, body) {
             if (error) return console.log(error);
             wsurl = body.slice(0, 20);
-            startDMListen();
+            var options = { method: 'GET',
+                url: 'http://service5.inke.tv/api/user/relation/numrelations',
+                qs: { id: uid } };
 
-            console.log(body);
+            request(options, function (error, response, body) {
+                if (error) return console.log(error);
+                var user_info = JSON.parse(body);
+                fans=user_info.num_followers;
+                // console.log(fans);
+                // console.log(body);
+                startDMListen();
+
+            });
+
+            // console.log(body);
         });
     });
     function json_decode(str) {
@@ -112,7 +125,7 @@ IK.prototype.start = function () {
 
                 }
                 if (uploaddata.length > 100) {
-                    Upload.uploadServe(id, uid, nick, title, uploaddata);//'ingkee',
+                    Upload.uploadServe(id, uid, nick, title,fans, uploaddata);//'ingkee',
                         uploaddata = [];
                 }
             });
