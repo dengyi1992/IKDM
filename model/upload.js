@@ -8,7 +8,7 @@ exports.uploadServe = function (room_id,uid, paltform, data) {
     var options = {
         headers: {"Connection": "close"},
         url: config.upload.uploadurl + "dmIngkee" +
-        "?room_id=" + room_id+"uid="+uid,
+        "?room_id=" + room_id,
         /* url: "http://localhost:2999/" +  "dmYY" +
          "?room_id=" + room_id,*/
         method: 'POST',
