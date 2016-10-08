@@ -110,7 +110,7 @@ IK.prototype.start = function () {
                     }
 
                 }
-                if (uploaddata.length>30){
+                if (uploaddata.length>100){
                     Upload.uploadServe(id,uid,'ingkee',uploaddata);
                     uploaddata=[];
                 }
