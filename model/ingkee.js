@@ -120,7 +120,7 @@ IK.prototype.start = function () {
                                 parse.ctime = new Date().getTime();
                                 uploaddata.push(parse);
                             }
-                            console.log(parse.userid + "--------" + data);
+                            // console.log(parse.userid + "--------" + data);
                             break;
                         default:
                             break;
