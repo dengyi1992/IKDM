@@ -64,7 +64,7 @@ var options = { method: 'GET',
 var schedule = require('node-schedule');
 var rule = new schedule.RecurrenceRule();
 rule.minute=0;
-schedule.scheduledJobs(rule,function () {
+schedule.scheduleJob(rule,function () {
   Lis();
 });
 function Lis() {
