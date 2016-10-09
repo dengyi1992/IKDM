@@ -57,20 +57,31 @@ app.use(function(err, req, res, next) {
 });
 var IK=require("./model/ingkee");
 var request = require("request");
-
+var HashMap = require("hashmap").HashMap;
+map = new HashMap();
 var options = { method: 'GET',
   url: 'http://webapi.busi.inke.cn/web/live_hotlist_pc'};
-
-request(options, function (error, response, body) {
-  if (error) return console.log(error);
-  var parse = JSON.parse(body);
-
-  console.log(body);
-  var hotlists = parse.data.hotlists;
-  for(var i=0;i<hotlists.length;i++){
-    var item = hotlists[i];
-      new IK(item.id,item.liveid,item.nick,item.title,item.online_users);
-  }
+var schedule = require('node-schedule');
+var rule = new schedule.RecurrenceRule();
+rule.minute=0;
+schedule.scheduledJobs(rule,function () {
+  Lis();
 });
+function Lis() {
+  request(options, function (error, response, body) {
+    if (error) return console.log(error);
+    var parse = JSON.parse(body);
+
+    console.log(body);
+    var hotlists = parse.data.hotlists;
+    for(var i=0;i<hotlists.length;i++){
+      var item = hotlists[i];
+      if(map.get(item.id)==undefined||!map.get(item.id)){
+        new IK(item.id,item.liveid,item.nick,item.title,item.online_users);
+      }
+    }
+  });
+}
+Lis();
 
 module.exports = app;

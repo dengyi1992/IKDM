@@ -86,12 +86,15 @@ IK.prototype.start = function () {
             console.log('Connect Error: ' + error.toString());
         });
         client.on('connect', function (connection) {
+            map.set(id,true);
             console.log('WebSocket Client Connected');
             connection.on('error', function (error) {
                 console.log("Connection Error: " + error.toString());
             });
             connection.on('close', function () {
                 console.log('echo-protocol Connection Closed');
+                map.set(id,false);
+
             });
             function sendHeartBeat() {
                 try {
