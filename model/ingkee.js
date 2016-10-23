@@ -28,49 +28,54 @@ IK.prototype.start = function () {
 
     request(options, function (error, response, body) {
         if (error) return console.log(error);
-        var parse = JSON.parse(body);
-        var t = new Date().getTime() + '';
-        token = parse.data.token;
-        time = parse.data.time;
-        nonce = parse.data.nonce;
-        sec = parse.data.sec;
-        sioIp = parse.data.sio_ip;
-        var options = {
-            method: 'GET',
-            url: 'http://' + sioIp +
-            '/socket.io/1/',
-            qs: {
-                uid: '',
-                place: 'room',
-                sid: '1',
-                roomid: id,
-                token: token,
-                time: time,
-                nonce: nonce,
-                sec: sec,
-                t: t
-            }
-        };
-
-        request(options, function (error, response, body) {
-            if (error) return console.log(error);
-            wsurl = body.slice(0, 20);
-            var options = { method: 'GET',
-                url: 'http://service5.inke.tv/api/user/relation/numrelations',
-                qs: { id: uid } };
+        try {
+            var parse = JSON.parse(body);
+            var t = new Date().getTime() + '';
+            token = parse.data.token;
+            time = parse.data.time;
+            nonce = parse.data.nonce;
+            sec = parse.data.sec;
+            sioIp = parse.data.sio_ip;
+            var options = {
+                method: 'GET',
+                url: 'http://' + sioIp +
+                '/socket.io/1/',
+                qs: {
+                    uid: '',
+                    place: 'room',
+                    sid: '1',
+                    roomid: id,
+                    token: token,
+                    time: time,
+                    nonce: nonce,
+                    sec: sec,
+                    t: t
+                }
+            };
 
             request(options, function (error, response, body) {
                 if (error) return console.log(error);
-                var user_info = JSON.parse(body);
-                fans=user_info.num_followers;
-                // console.log(fans);
+                wsurl = body.slice(0, 20);
+                var options = { method: 'GET',
+                    url: 'http://service5.inke.tv/api/user/relation/numrelations',
+                    qs: { id: uid } };
+
+                request(options, function (error, response, body) {
+                    if (error) return console.log(error);
+                    var user_info = JSON.parse(body);
+                    fans=user_info.num_followers;
+                    // console.log(fans);
+                    // console.log(body);
+                    startDMListen();
+
+                });
+
                 // console.log(body);
-                startDMListen();
-
             });
+        }catch (e){
+            console.log(e);
+        }
 
-            // console.log(body);
-        });
     });
     function json_decode(str) {
         var replace = str.replace(/\"(\w+)\":/g, "$1:");
