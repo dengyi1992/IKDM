@@ -78,7 +78,7 @@ function Lis() {
         var hotlists = parse.data.hotlists;
         var i = 0;
         var interval = setInterval(function () {
-            if (i >= hotlists.length) {
+            if (i >= hotlists.length-1) {
                 clearInterval(interval);
             }
             var item = hotlists[i];
